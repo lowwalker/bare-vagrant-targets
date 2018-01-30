@@ -16,11 +16,11 @@ Vagrant.configure("2") do |config|
   # Iterate through entries in YAML file
   servers.each do |servers|
     config.vm.define servers["name"] do |srv|
-      srv.vm.box = "ubuntu/trusty64"
+      srv.vm.box = "debian/jessie64"
       srv.vm.synced_folder ".", "/vagrant", disabled: true
       srv.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
-#      srv.vm.network "private_network", ip: servers["ip"]
-      srv.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: servers["ip"]
+      srv.vm.network "private_network", ip: servers["ip"]
+#      srv.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)", ip: servers["ip"]
       unless servers["port_frwd_guest"].nil?
       srv.vm.network "forwarded_port", guest: servers["port_frwd_guest"], host: servers["port_frwd_host"]
     end
