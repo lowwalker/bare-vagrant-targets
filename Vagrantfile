@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
   servers.each do |servers|
     config.vm.define servers["name"] do |srv|
       srv.vm.box = "debian/jessie64"
+#      srv.vm.box = "ubuntu/trusty64"
+#      srv.vm.box = "debian/jessie64"
       srv.vm.synced_folder ".", "/vagrant", disabled: true
       srv.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
       srv.vm.network "private_network", ip: servers["ip"]
