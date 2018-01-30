@@ -36,14 +36,8 @@ Vagrant.configure("2") do |config|
     ansible.host_key_checking = false
     ansible.playbook = "inventories/provision.yml"
     ansible.become = true
-    ansible.host_vars = {
-      "consul-web" => { "consul_server" => true },
-      "consul-01" => { "consul_agent" => true },
-      "consul-02" => { "consul_agent" => true }
-    }
-    ansible.groups = {
-      'consul' => ['consul-web', 'consul-01','consul-02'],
-    }
+    ansible.host_vars = {}
+    ansible.groups = {}
 
   end
 end
