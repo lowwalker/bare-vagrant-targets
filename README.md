@@ -6,10 +6,34 @@ Scaffold to get a project going for ansible development
 
 ##### Versions
 
+- OSX 10.13.3
 - Virtualbox 5.2.6
 - Vagrant 2.0.1
 - Ansible 2.4.2.0 (installed on OSX via pip (no sudo))
 
+
+##### TL;DR
+- Clone the repo to your local system and cd into it.
+- Checkout a branch for you to beat on.
+```
+git checkout -b smooth-triceratops
+```
+- Create a blank role, name it what you like but when creating with this each default file included will have that name in the head of the file.
+```
+ansible-galaxy init errbody-get-your-role-on
+```
+- Bring up the 3 targets.
+```
+vagrant up
+```
+- Crank out some tasks for your role, update site.yml with your role name and run it.
+```
+ansible-playbook site.yml
+```
+
+
+
+### Advanced stuff or maybe something isn't working
 
 ##### Vagrantfile options
 
@@ -35,7 +59,7 @@ When using the public network option you will need to adjust the IP addresses in
 
 ###### Ansible Provisioners for Vagrantfile
 
-The default is included, a blank structure.
+The default block is included, a blank structure. With this you will be able to target by host name or the all group immediately.
 ```
 config.vm.provision :ansible do |ansible|
   ansible.host_key_checking = false
@@ -46,7 +70,7 @@ config.vm.provision :ansible do |ansible|
 
 ```
 
-Let's consider the below example.
+Let's consider the below example to see how to add hosts to groups.
 
 ```
 config.vm.provision :ansible do |ansible|
@@ -64,10 +88,16 @@ config.vm.provision :ansible do |ansible|
   }
 ```
 
-This gives us two immediately usable ansible features, host vars by individual hosts and groups to target. You can now target all the hosts with the 'consul' group, if you target 'consul-agents' you'll only have target-02 and target-03. 
+This gives us two immediately usable ansible features, host vars by individual hosts and groups to target. You can now target all the hosts with the 'consul' group, if you target 'consul-agents' you'll only have target-02 and target-03.
 
 Vagrant will automatically build up the hosts file, so your playbooks or ansible commands can immediately use these as the ansible.cfg in this repo will point at the vagrant created inventory.
 
 ###### Leveraging group_vars
 
 An example group_vars directory and file are placed next to the vagrant generated inventory. Simple create a file in the '.vagrant/provisioners/ansible/inventory/group_vars/' directory and ansible will consume it when running playbooks.
+
+
+
+##### TODO
+- prompt for base box
+- prompt for network type
